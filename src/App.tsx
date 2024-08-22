@@ -1,28 +1,6 @@
-import { decrement, increment } from "./features/dashboard/dashboardSlice";
-import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
-
+import Dashboard from "./pages/Dashboard";
 function App() {
-  const count = useAppSelector((state) => state.dashboard.count);
-  const dispatch = useAppDispatch();
-  return (
-    <>
-      <div>{count}</div>
-      <button
-        onClick={() => {
-          dispatch(increment());
-        }}
-      >
-        increment
-      </button>
-      <button
-        onClick={() => {
-          dispatch(decrement());
-        }}
-      >
-        decrement
-      </button>
-    </>
-  );
+  return <Dashboard />;
 }
 
 export default App;

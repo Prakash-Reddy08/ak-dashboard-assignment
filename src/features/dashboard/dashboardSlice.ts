@@ -1,26 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
+import categories from "../../utils/categories";
+import { ICategoryNames, IWidget } from "../../Types";
 
 // name of action
 // initial state
 // reducer
 
 const initialState = {
-  count: 0,
+  categories,
 };
 
 const dashboardSlice = createSlice({
   name: "dashboard",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.count += 1;
+    createWidget: (
+      state,
+      action: {
+        payload: { widgetCategory: ICategoryNames; data: IWidget };
+        type: string;
+      }
+    ) => {
+      const { widgetCategory, data } = action.payload;
+      state.categories[widgetCategory].widgets.push(data);
     },
-    decrement: (state) => {
-      state.count -= 1;
+    removeWidget: (
+      state,
+      action: {
+        payload: { widgetCategory: ICategoryNames; widgetId: string };
+        type: string;
+      }
+    ) => {
+      const { widgetCategory, widgetId } = action.payload;
+      console.log(widgetCategory, widgetId);
+      state.categories[widgetCategory].widgets = state.categories[
+        widgetCategory
+      ].widgets.filter((widget) => widget.id !== widgetId);
     },
   },
 });
 
-export const { increment, decrement } = dashboardSlice.actions;
+export const { createWidget, removeWidget } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;
